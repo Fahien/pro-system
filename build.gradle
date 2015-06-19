@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 
 sourceCompatibility = 1.8
-version = '0.1'
+version = '0.2'
 jar {
     manifest {
         attributes 'Implementation-Title': 'rcn-system',
@@ -15,4 +15,11 @@ repositories {
 }
 
 dependencies {
+    compile("org.postgresql:postgresql:9.+")
+    compile("junit:junit:4.+")
+}
+
+test {
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging.showStandardStreams = true
 }
