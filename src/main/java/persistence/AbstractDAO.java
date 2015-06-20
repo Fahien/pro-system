@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public abstract class AbstractDAO implements DAO {
 	private static final Logger logger = Logger.getLogger(DriverTest.class.getName());
 
-	private Connection connection;
+	protected Connection connection;
 
 	private Properties getDbProperties() {
 		Properties db = new Properties();
