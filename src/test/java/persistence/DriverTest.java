@@ -36,7 +36,7 @@ public class DriverTest {
 			for (int i = 0; i < C_NUM; i++) {
 				if (connection[i] != null) {
 					connection[i].close();
-					logger.info("Connection closed" + i);
+					logger.info("Connection closed " + i);
 				}
 			}
 		} catch (Exception e) { 
@@ -47,7 +47,7 @@ public class DriverTest {
 	private Properties getDbProperties() {
 		Properties db = new Properties();
 		try {
-			FileInputStream in = new FileInputStream("src/test/resources/db.properties");
+			FileInputStream in = new FileInputStream("src/main/resources/db.properties");
 			try {
 				db.load(in);
 			} catch (IOException e) {

@@ -15,7 +15,7 @@ public class PropertiesTest {
 		Properties properties = new Properties();
 		FileInputStream in;
 		try {
-			in = new FileInputStream("src/test/resources/db.properties");
+			in = new FileInputStream("src/main/resources/db.properties");
 			try {
 				properties.load(in);
 				logger.info(properties.getProperty("db.url"));

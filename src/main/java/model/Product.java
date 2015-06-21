@@ -12,8 +12,6 @@ public class Product {
 
 	private float price;
 
-	private Format format;
-
 	private Producer producer;
 
 	public long getId() {
@@ -54,14 +52,6 @@ public class Product {
 
 	public void setPrice(float price) {
 		this.price = price;
-	}
-
-	public Format getFormat() {
-		return format;
-	}
-
-	public void setFormat(Format format) {
-		this.format = format;
 	}
 
 	public Producer getProducer() {
