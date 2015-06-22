@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
+import java.util.List;
 
 import model.Product;
 
@@ -30,6 +31,15 @@ public class ProductDAOTest {
 		assertTrue(connection != null);
 		product = dao.insert(product);
 		assertFalse(product.getId() == 0);
+		dao.closeConnection();
+	}
+
+	@Test public void selectTest() {
+		ProductDAO dao = new ProductDAO();
+		Connection connection = dao.getConnection();
+		assertTrue(connection != null);
+		List<Product> products = dao.selectAll();
+		assertFalse(products.size() == 0);
 		dao.closeConnection();
 	}
 

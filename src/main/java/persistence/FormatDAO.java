@@ -36,5 +36,4 @@ public class FormatDAO extends AbstractDAO {
 		}
 		return format;
 	}
-
 }

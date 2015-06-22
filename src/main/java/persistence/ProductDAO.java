@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -40,6 +41,24 @@ public class ProductDAO extends AbstractDAO {
 	}
 
 	public List<Product> selectAll() {
-		return null;
+		List<Product> products = new ArrayList<>();
+		PreparedStatement selectAll = null;
+		String sql = "SELECT * FROM product";
+		try {
+			selectAll = connection.prepareStatement(sql);
+			ResultSet result = selectAll.executeQuery();
+			while (result.next()) {
+				Product product = new Product();
+				product.setId(result.getLong(1));
+				product.setName(result.getString(2));
+				product.setDescription(result.getString(3));
+				product.setImage(result.getString(4));
+				product.setPrice(result.getFloat(5));
+				products.add(product);
+			}
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return products;
 	}
 }

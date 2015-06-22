@@ -1,14 +1,17 @@
 apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jetty'
 apply plugin: 'eclipse'
 
 sourceCompatibility = 1.8
-version = '0.2'
+version = '0.4'
 jar {
     manifest {
         attributes 'Implementation-Title': 'pro-system',
                    'Implementation-Version': version
     }
 }
+jettyRun.contextPath = '/'
 
 repositories {
     mavenCentral()
@@ -16,10 +19,12 @@ repositories {
 
 dependencies {
     compile("org.postgresql:postgresql:9.+")
-    compile("junit:junit:4.+")
-}
-
-test {
-    // show standard out and standard error of the test JVM(s) on the console
-    testLogging.showStandardStreams = true
+    compile('com.sun.jersey:jersey-core:1.+')
+    compile('com.sun.jersey:jersey-server:1.+')
+    compile('com.sun.jersey:jersey-servlet:1.+')
+    compile('com.sun.jersey:jersey-json:1.+')
+    testCompile('junit:junit:4.+')
+    testCompile('org.hamcrest:hamcrest-all:1.+')
+    testCompile('com.sun.jersey:jersey-client:1.+')
+    testCompile('com.sun.jersey:jersey-core:1.+')
 }

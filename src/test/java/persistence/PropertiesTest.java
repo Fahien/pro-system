@@ -10,12 +10,13 @@ import org.junit.Test;
 
 public class PropertiesTest {
 	private static final Logger logger = Logger.getLogger(PropertiesTest.class.getName());
+	private static final String DB_PROPERTIES = "/db.properties";
 
 	@Test public void loadProperties() {
 		Properties properties = new Properties();
 		FileInputStream in;
 		try {
-			in = new FileInputStream("src/main/resources/db.properties");
+			in = new FileInputStream(PropertiesTest.class.getResource(DB_PROPERTIES).getPath());
 			try {
 				properties.load(in);
 				logger.info(properties.getProperty("db.url"));

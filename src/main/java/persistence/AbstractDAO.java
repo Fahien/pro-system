@@ -10,15 +10,15 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 public abstract class AbstractDAO implements DAO {
-	private static final Logger logger = Logger.getLogger(DriverTest.class.getName());
-	private static final String DB_PROPERTIES = "src/main/resources/db.properties";
+	private static final Logger logger = Logger.getLogger(AbstractDAO.class.getName());
+	private static final String DB_PROPERTIES = "/db.properties";
 
 	protected Connection connection;
 
 	private Properties getDbProperties() {
 		Properties db = new Properties();
 		try {
-			FileInputStream in = new FileInputStream(DB_PROPERTIES);
+			FileInputStream in = new FileInputStream(AbstractDAO.class.getResource(DB_PROPERTIES).getPath());
 			try {
 				db.load(in);
 			} catch (IOException e) {
