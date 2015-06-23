@@ -25,6 +25,7 @@ public class ProductDAOTest {
 		product.setDescription("Description");
 		product.setImage("Url");
 		product.setPrice(10.5f);
+		product.setGain(1.0f);
 		
 		ProductDAO dao = new ProductDAO();
 		Connection connection = dao.getConnection();

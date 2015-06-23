@@ -15,19 +15,20 @@ public class ProductDAO extends AbstractDAO {
 
 	public Product insert(Product product) {
 		PreparedStatement insertProduct = null;
-		String sql = "INSERT INTO product (id, name, description, image, price) ";
+		String sql = "INSERT INTO product (id, name, description, image, price, gain) ";
 		try {
 			int i = 0;
 			if (product.getId() == 0) {
-				insertProduct = connection.prepareStatement(sql + "VALUES (nextval('productsequence'), ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+				insertProduct = connection.prepareStatement(sql + "VALUES (nextval('productsequence'), ?, ?, ?, ? , ? )", Statement.RETURN_GENERATED_KEYS);
 			} else {
-				insertProduct = connection.prepareStatement(sql + "VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+				insertProduct = connection.prepareStatement(sql + "VALUES (?, ?, ?, ?, ? , ? )", Statement.RETURN_GENERATED_KEYS);
 				insertProduct.setLong(++i, product.getId());
 			}
 			insertProduct.setString(++i, product.getName());
 			insertProduct.setString(++i, product.getDescription());
 			insertProduct.setString(++i, product.getImage());
 			insertProduct.setFloat(++i, product.getPrice());
+			insertProduct.setFloat(++i, product.getGain());
 			insertProduct.executeUpdate();
 			ResultSet result = insertProduct.getGeneratedKeys();
 			if (result.next()) {
@@ -54,6 +55,7 @@ public class ProductDAO extends AbstractDAO {
 				product.setDescription(result.getString(3));
 				product.setImage(result.getString(4));
 				product.setPrice(result.getFloat(5));
+				product.setGain(result.getFloat(6));
 				products.add(product);
 			}
 		} catch (SQLException e) {
