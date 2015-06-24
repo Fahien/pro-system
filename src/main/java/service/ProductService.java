@@ -14,4 +14,11 @@ public class ProductService {
 		productDao.closeConnection();
 		return products;
 	}
+
+	public Product insert(Product product) {
+		productDao.getConnection();
+		productDao.insert(product);
+		productDao.closeConnection();
+		return product;
+	}
 }

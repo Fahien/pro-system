@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
@@ -17,5 +18,10 @@ public class ProductController {
 	@GET public List<Product> getProducts() {
 		List<Product> products = productService.selectAll();
 		return products;
+	}
+
+	@POST public Product newProduct(Product product) {
+		productService.insert(product);
+		return product;
 	}
 }

@@ -9,4 +9,6 @@ function productController($scope, ProductFactory) {
 	ProductFactory.query({}, function (productFactory) {
 		view.products = productFactory;
 	});
+
+	view.product = new ProductFactory;
 }

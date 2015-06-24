@@ -1,0 +1,21 @@
+<form ng-submit="view.product.$save()" role="form">
+	<div class="form-group">
+		<input class="form-control" type="text" name="name" placeholder="Name" ng-model="view.product.name" />
+	</div>
+	<div class="form-group">
+		<textarea class="form-control" name="description" placeholder="Description here" ng-model="view.product.description"></textarea>
+	</div>
+	<div class="form-group">
+		<input class="form-control" type="text" name="image"
+			placeholder="Image url" ng-model="view.product.image" />
+	</div>
+	<div class="form-group">
+		<input class="form-control" type="text" name="price" placeholder="Price" ng-model="view.product.price" />
+	</div>
+	<div class="form-group">
+		<label for="producer">Producer </label> <select class="form-control" name="producer" ng-model="view.product.producer">
+		<option value="none">Select a producer</option>
+		</select>
+	</div>
+	<button type="submit" class="btn btn-default">Create</button>
+</form>
