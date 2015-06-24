@@ -14,6 +14,8 @@ public class Product {
 
 	private Producer producer;
 
+	private float gain;
+
 	public long getId() {
 		return id;
 	}
@@ -61,4 +63,13 @@ public class Product {
 	public void setProducer(Producer procuder) {
 		this.producer = procuder;
 	}
+
+	public float getGain() {
+		return gain;
+	}
+
+	public void setGain(float gain) {
+		this.gain = gain;
+	}
+	
 }
