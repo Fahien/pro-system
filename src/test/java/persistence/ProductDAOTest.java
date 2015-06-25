@@ -26,12 +26,12 @@ public class ProductDAOTest {
 		product.setImage("Url");
 		product.setPrice(10.5f);
 		product.setGain(1.0f);
-		
+
 		ProductDAO dao = ProductDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
 		product = dao.insert(product);
-		assertFalse(product.getId() != 0);
+		assertFalse(product.getId() == 0);
 		dao.closeConnection();
 	}
 

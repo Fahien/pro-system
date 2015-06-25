@@ -26,7 +26,6 @@ public class ProducerDAOTest {
 		producer.setTelephone("telephone");
 		producer.setIban("iban");
 
-
 		ProducerDAO dao = ProducerDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue (connection != null);

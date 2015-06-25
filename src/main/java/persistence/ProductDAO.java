@@ -27,9 +27,9 @@ public class ProductDAO extends AbstractDAO {
 		try {
 			int i = 0;
 			if (product.getId() == 0) {
-				insertProduct = connection.prepareStatement(sql + "VALUES (nextval('productsequence'), ?, ?, ?, ? , ? )", Statement.RETURN_GENERATED_KEYS);
+				insertProduct = connection.prepareStatement(sql + "VALUES (nextval('productsequence'), ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			} else {
-				insertProduct = connection.prepareStatement(sql + "VALUES (?, ?, ?, ?, ? , ? )", Statement.RETURN_GENERATED_KEYS);
+				insertProduct = connection.prepareStatement(sql + "VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 				insertProduct.setLong(++i, product.getId());
 			}
 			insertProduct.setString(++i, product.getName());

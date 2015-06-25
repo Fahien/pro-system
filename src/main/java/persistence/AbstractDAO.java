@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 public abstract class AbstractDAO implements DAO {
 	private static final Logger logger = Logger.getLogger(AbstractDAO.class.getName());
 	private static final String DB_PROPERTIES = "/db.properties";
+	private String dbUrl = getDbUrl();
 
 	protected Connection connection;
 
@@ -35,15 +36,16 @@ public abstract class AbstractDAO implements DAO {
 		return db;
 	}
 
+	private String getDbUrl() {
+		Properties db = getDbProperties();
+		return db.getProperty("db.url") + "?user=" + db.getProperty("db.username") + "&password=" + db.getProperty("db.password");
+	}
+
 	@Override public Connection getConnection() {
 		try {
 			Class.forName("org.postgresql.Driver");
-			if (connection == null) {
-				Properties db = getDbProperties();
-				String dbUrl = db.getProperty("db.url") + "?user=" + db.getProperty("db.username") + "&password=" + db.getProperty("db.password");
-				connection = DriverManager.getConnection(dbUrl);
-				logger.info("Connection opened");
-			}
+			connection = DriverManager.getConnection(dbUrl);
+			logger.info("Connection opened");
 		} catch (ClassNotFoundException e) {
 			logger.warning(e.getMessage());
 		} catch (SQLException e) {
