@@ -13,7 +13,7 @@ import org.junit.Test;
 public class ProductDAOTest {
 
 	@Test public void daoTest() {
-		DAO dao = new ProductDAO();
+		DAO dao = ProductDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
 		dao.closeConnection();
@@ -27,16 +27,16 @@ public class ProductDAOTest {
 		product.setPrice(10.5f);
 		product.setGain(1.0f);
 		
-		ProductDAO dao = new ProductDAO();
+		ProductDAO dao = ProductDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
 		product = dao.insert(product);
-		assertFalse(product.getId() == 0);
+		assertFalse(product.getId() != 0);
 		dao.closeConnection();
 	}
 
 	@Test public void selectTest() {
-		ProductDAO dao = new ProductDAO();
+		ProductDAO dao = ProductDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
 		List<Product> products = dao.selectAll();

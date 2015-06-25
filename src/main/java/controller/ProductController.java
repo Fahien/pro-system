@@ -13,7 +13,7 @@ import model.Product;
 @Path("/product")
 @Produces("application/json")
 public class ProductController {
-	ProductService productService = new ProductService();
+	ProductService productService = ProductService.getInstance();
 
 	@GET public List<Product> getProducts() {
 		List<Product> products = productService.selectAll();

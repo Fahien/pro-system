@@ -9,6 +9,14 @@ import java.util.logging.Logger;
 import model.Client;
 
 public class ClientDAO extends AbstractDAO {
+	private static final ClientDAO INSTANCE = new ClientDAO();
+
+	private ClientDAO() {}
+
+	public static ClientDAO getInstance() {
+		return INSTANCE;
+	}
+
 	private static final Logger logger = Logger.getLogger(ClientDAO.class.getName());
 
 	public Client insert(Client client) {

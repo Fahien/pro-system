@@ -12,7 +12,7 @@ import org.junit.Test;
 public class ClientDAOTest {
 
 	@Test public void daoTest() {
-		DAO dao = new ClientDAO();
+		DAO dao = ClientDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
 		dao.closeConnection();
@@ -29,7 +29,7 @@ public class ClientDAOTest {
 		client.setEmail("email");
 
 
-		ClientDAO dao = new ClientDAO();
+		ClientDAO dao = ClientDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue (connection != null);
 		client = dao.insert(client);

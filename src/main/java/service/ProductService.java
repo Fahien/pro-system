@@ -6,7 +6,15 @@ import model.Product;
 import persistence.ProductDAO;
 
 public class ProductService {
-	private ProductDAO productDao = new ProductDAO();
+	private static final ProductService INSTANCE = new ProductService();
+
+	private ProductService() {}
+
+	public static ProductService getInstance() {
+		return INSTANCE;
+	}
+
+	private ProductDAO productDao = ProductDAO.getInstance();
 
 	public List<Product> selectAll() {
 		productDao.getConnection();

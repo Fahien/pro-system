@@ -9,6 +9,14 @@ import java.util.logging.Logger;
 import model.Format;
 
 public class FormatDAO extends AbstractDAO {
+	private static final FormatDAO INSTANCE = new FormatDAO();
+
+	private FormatDAO() {}
+
+	public static FormatDAO getInstance() {
+		return INSTANCE;
+	}
+
 	private static final Logger logger = Logger.getLogger(FormatDAO.class.getName());
 
 	public Format insert(Format format) {

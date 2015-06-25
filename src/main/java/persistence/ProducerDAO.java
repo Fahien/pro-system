@@ -9,6 +9,14 @@ import java.util.logging.Logger;
 import model.Producer;
 
 public class ProducerDAO extends AbstractDAO {
+	private static final ProducerDAO INSTANCE = new ProducerDAO();
+
+	private ProducerDAO() {}
+
+	public static ProducerDAO getInstance() {
+		return INSTANCE;
+	}
+
 	private static final Logger logger = Logger.getLogger(ProducerDAO.class.getName());
 
 	public Producer insert(Producer producer) {

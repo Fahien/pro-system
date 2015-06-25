@@ -11,7 +11,7 @@ import org.junit.Test;
 public class FormatDAOTest {
 
 	@Test public void daoTest() {
-		DAO dao = new FormatDAO();
+		DAO dao = FormatDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
 		dao.closeConnection();
@@ -21,7 +21,7 @@ public class FormatDAOTest {
 		Format format = new Format();
 		format.setValue(250);
 
-		FormatDAO dao = new FormatDAO();
+		FormatDAO dao = FormatDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue (connection != null);
 		format = dao.insert(format);

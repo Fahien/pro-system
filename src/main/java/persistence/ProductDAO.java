@@ -11,6 +11,14 @@ import java.util.logging.Logger;
 import model.Product;
 
 public class ProductDAO extends AbstractDAO {
+	private static final ProductDAO INSTANCE = new ProductDAO();
+
+	private ProductDAO() {}
+
+	public static ProductDAO getInstance() {
+		return INSTANCE;
+	}
+
 	private static final Logger logger = Logger.getLogger(ProductDAO.class.getName());
 
 	public Product insert(Product product) {

@@ -11,7 +11,7 @@ import org.junit.Test;
 public class ProducerDAOTest {
 
 	@Test public void daoTest() {
-		DAO dao = new ProducerDAO();
+		DAO dao = ProducerDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
 		dao.closeConnection();
@@ -27,7 +27,7 @@ public class ProducerDAOTest {
 		producer.setIban("iban");
 
 
-		ProducerDAO dao = new ProducerDAO();
+		ProducerDAO dao = ProducerDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue (connection != null);
 		producer = dao.insert(producer);
