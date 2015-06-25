@@ -1,21 +1,21 @@
 package model;
 
 public class Client {
-	
-	private long id ;
-	
+
+	private long id;
+
 	private String firstname;
-	
+
 	private String lastname;
-	
+
 	private String address;
-	
+
 	private String fiscalcode;
-	
+
 	private String piva;
-	
+
 	private String telephone;
-	
+
 	private String email;
 
 	public long getId() {
@@ -81,6 +81,4 @@ public class Client {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-
 }

@@ -12,6 +12,8 @@ public class Product {
 
 	private float price;
 
+	private Format format;
+
 	private Producer producer;
 
 	private float gain;
@@ -56,6 +58,14 @@ public class Product {
 		this.price = price;
 	}
 
+	public Format getFormat() {
+		return format;
+	}
+
+	public void setFormat(Format format) {
+		this.format = format;
+	}
+
 	public Producer getProducer() {
 		return producer;
 	}
@@ -71,5 +81,4 @@ public class Product {
 	public void setGain(float gain) {
 		this.gain = gain;
 	}
-	
 }
