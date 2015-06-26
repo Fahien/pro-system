@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -23,16 +25,17 @@ public class OrderListDAO extends AbstractDAO {
 
 	public OrderList insert(OrderList order) {
 		PreparedStatement insert = null;
-		String sql = "INSERT INTO orderlist(id, date)";
+		String sql = "INSERT INTO orderlist(id, date, delivery)";
 		try {
 			int i = 0;
 			if (order.getId() == 0) {
-				insert = connection.prepareStatement(sql + "VALUES (nextval('ordersequence'), ?)", Statement.RETURN_GENERATED_KEYS);
+				insert = connection.prepareStatement(sql + "VALUES (nextval('ordersequence'), ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			} else {
-				insert = connection.prepareStatement(sql + "VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+				insert = connection.prepareStatement(sql + "VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 				insert.setLong(++i, order.getId());
 			}
 			insert.setDate(++i,order.getDate());
+			insert.setDate(++i,order.getDelivery());
 			insert.executeUpdate();
 			if (order.getId() == 0) {
 				ResultSet result = insert.getGeneratedKeys();
@@ -61,5 +64,25 @@ public class OrderListDAO extends AbstractDAO {
 			logger.warning(e.getMessage());
 		}
 		return order;
+	}
+
+	public List<OrderList> selectAll() {
+		List<OrderList> orders = new ArrayList<>();
+		PreparedStatement selectAll = null;
+		String sql = "SELECT * FROM orderlist";
+		try {
+			selectAll = connection.prepareStatement(sql);
+			ResultSet result = selectAll.executeQuery();
+			while (result.next()) {
+				OrderList order = new OrderList();
+				order.setId(result.getLong(1));
+				order.setDate(result.getDate(2));
+				order.setDelivery(result.getDate(3));
+				orders.add(order);
+			}
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return orders;
 	}
 }

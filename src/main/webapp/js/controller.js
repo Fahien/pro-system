@@ -1,9 +1,9 @@
 
 angular.module('proApp.controller', []);
 
-angular.module('proApp.controller').controller('ProductCtrl', ['$scope', 'ProductFactory', productController]);
+angular.module('proApp.controller').controller('ProductCtrl', ['ProductFactory', productController]);
 
-function productController($scope, ProductFactory) {
+function productController(ProductFactory) {
 	var view = this;
 	view.products = [];
 	ProductFactory.query({}, function (productFactory) {
@@ -13,9 +13,9 @@ function productController($scope, ProductFactory) {
 	view.product = new ProductFactory;
 }
 
-angular.module('proApp.controller').controller('ProducerCtrl', ['$scope', 'ProducerFactory', producerController]);
+angular.module('proApp.controller').controller('ProducerCtrl', ['ProducerFactory', producerController]);
 
-function producerController($scope, ProducerFactory) {
+function producerController(ProducerFactory) {
 	var view = this;
 	view.producers = [];
 	ProducerFactory.query({}, function (producerFactory) {
@@ -25,9 +25,9 @@ function producerController($scope, ProducerFactory) {
 	view.producer = new ProducerFactory;
 }
 
-angular.module('proApp.controller').controller('FormatCtrl', ['$scope', 'FormatFactory', formatController]);
+angular.module('proApp.controller').controller('FormatCtrl', ['FormatFactory', formatController]);
 
-function formatController($scope, FormatFactory) {
+function formatController(FormatFactory) {
 	var view = this;
 	view.formats = [];
 	FormatFactory.query({}, function (formatFactory) {
@@ -35,4 +35,18 @@ function formatController($scope, FormatFactory) {
 	});
 
 	view.format = new FormatFactory;
+}
+
+angular.module('proApp.controller').controller('OrderCtrl', ['OrderFactory', orderController]);
+
+function orderController(OrderFactory) {
+	var view = this;
+	view.orders = [];
+	OrderFactory.query({}, function (orderFactory) {
+		view.orders = orderFactory;
+	});
+
+	view.order = new OrderFactory;
+	view.order.date = Date.now();
+	view.order.$save();
 }

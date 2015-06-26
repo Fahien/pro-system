@@ -17,3 +17,9 @@ angular.module('proApp.service').factory('FormatFactory', formatFactory);
 function formatFactory($resource) {
 	return $resource('/rs/format/', {}, {})
 }
+
+angular.module('proApp.service').factory('OrderFactory', orderFactory);
+
+function orderFactory($resource) {
+	return $resource('/rs/order/', {}, {})
+}
