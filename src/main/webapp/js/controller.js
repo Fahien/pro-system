@@ -24,3 +24,15 @@ function producerController($scope, ProducerFactory) {
 
 	view.producer = new ProducerFactory;
 }
+
+angular.module('proApp.controller').controller('FormatCtrl', ['$scope', 'FormatFactory', formatController]);
+
+function formatController($scope, FormatFactory) {
+	var view = this;
+	view.formats = [];
+	FormatFactory.query({}, function (formatFactory) {
+		view.formats = formatFactory;
+	});
+
+	view.format = new FormatFactory;
+}

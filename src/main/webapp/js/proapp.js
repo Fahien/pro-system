@@ -9,6 +9,8 @@ function configRoute($routeProvider, $httpProvider) {
 	$routeProvider.when('/product/create', {templateUrl: 'view/product/create.html', controller: 'ProductCtrl', controllerAs: 'view'});
 	$routeProvider.when('/producer', {templateUrl: 'view/producer/producer.html', controller: 'ProducerCtrl', controllerAs: 'view'});
 	$routeProvider.when('/producer/create', {templateUrl: 'view/producer/create.html', controller: 'ProducerCtrl', controllerAs: 'view'});
+	$routeProvider.when('/format', {templateUrl: 'view/format/format.html', controller: 'FormatCtrl', controllerAs: 'view'});
+	$routeProvider.when('/format/create', {templateUrl: 'view/format/create.html', controller: 'FormatCtrl', controllerAs: 'view'});
 	$routeProvider.otherwise({redirectTo: '/'});
 
 	$httpProvider.defaults.useXDomain = true;

@@ -27,7 +27,7 @@ public class OrderListDAOTest {
 
 		for (int i = 0; i < 10; i++) {
 			Format format = new Format();
-			format.setValue(250 + i);
+			format.setValue(300 + i * 10);
 			FormatDAO formatDao = FormatDAO.getInstance();
 			formatDao.getConnection();
 			format = formatDao.insert(format);

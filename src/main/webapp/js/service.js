@@ -11,3 +11,9 @@ angular.module('proApp.service').factory('ProducerFactory', producerFactory);
 function producerFactory($resource) {
 	return $resource('/rs/producer/', {}, {})
 }
+
+angular.module('proApp.service').factory('FormatFactory', formatFactory);
+
+function formatFactory($resource) {
+	return $resource('/rs/format/', {}, {})
+}

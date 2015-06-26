@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import model.Format;
@@ -43,5 +45,24 @@ public class FormatDAO extends AbstractDAO {
 			logger.warning(e.getMessage());
 		}
 		return format;
+	}
+
+	public List<Format> selectAll() {
+		List<Format> formats = new ArrayList<>();
+		PreparedStatement selectAll = null;
+		String sql = "SELECT * FROM format";
+		try {
+			selectAll = connection.prepareStatement(sql);
+			ResultSet result = selectAll.executeQuery();
+			while (result.next()) {
+				Format format = new Format();
+				format.setId(result.getLong(1));
+				format.setValue(result.getInt(2));
+				formats.add(format);
+			}
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return formats;
 	}
 }
