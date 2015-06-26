@@ -19,7 +19,7 @@ public class OrderListDAO extends AbstractDAO {
 		return INSTANCE;
 	}
 
-	private static final Logger logger = Logger.getLogger(OrderListDAOTest.class.getName());
+	private static final Logger logger = Logger.getLogger(OrderListDAO.class.getName());
 
 	public OrderList insert(OrderList order) {
 		PreparedStatement insert = null;
@@ -44,7 +44,7 @@ public class OrderListDAO extends AbstractDAO {
 		} catch (SQLException e) {
 			logger.warning(e.getMessage());
 		}
-		
+
 		sql = "INSERT INTO orderlistcontainsproduct(idOrder, idProduct, idFormat, idProducer, number)";
 		try {
 			for (Map.Entry<Product, Integer> entry : order.getProducts().entrySet()) {

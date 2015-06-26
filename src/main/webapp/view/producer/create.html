@@ -1,0 +1,21 @@
+<form ng-submit="view.producer.$save()" role="form">
+	<div class="form-group">
+		<input class="form-control" type="text" name="name" placeholder="Name" ng-model="view.producer.name" />
+	</div>
+	<div class="form-group">
+		<input class="form-control" type="text" name="address" placeholder="Address" ng-model="view.producer.address"></input>
+	</div>
+	<div class="form-group">
+		<input class="form-control" type="text" name="piva" placeholder="Partita IVA" ng-model="view.producer.piva" />
+	</div>
+	<div class="form-group">
+		<input class="form-control" type="text" name="email" placeholder="E-mail" ng-model="view.producer.email" />
+	</div>
+	<div class="form-group">
+		<input class="form-control" type="text" name="telephone" placeholder="Telephone" ng-model="view.producer.telephone" />
+	</div>
+	<div class="form-group">
+		<input class="form-control" type="text" name="iban" placeholder="Iban" ng-model="view.producer.iban" />
+	</div>
+	<button type="submit" class="btn btn-default">Create</button>
+</form>

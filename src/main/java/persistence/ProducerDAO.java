@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import model.Producer;
@@ -48,5 +50,29 @@ public class ProducerDAO extends AbstractDAO {
 			logger.warning(e.getMessage());
 		}
 		return producer;
+	}
+
+	public List<Producer> selectAll() {
+		List<Producer> producers = new ArrayList<>();
+		PreparedStatement selectAll = null;
+		String sql = "SELECT * FROM producer";
+		try {
+			selectAll = connection.prepareStatement(sql);
+			ResultSet result = selectAll.executeQuery();
+			while (result.next()) {
+				Producer producer = new Producer();
+				producer.setId(result.getLong(1));
+				producer.setName(result.getString(2));
+				producer.setAddress(result.getString(3));
+				producer.setPiva(result.getString(4));
+				producer.setEmail(result.getString(5));
+				producer.setTelephone(result.getString(6));
+				producer.setIban(result.getString(7));
+				producers.add(producer);
+			}
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return producers;
 	}
 }

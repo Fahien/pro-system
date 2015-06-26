@@ -3,3 +3,4 @@
 /.gradle/
 /.settings/
 /.tern-project
+/src/main/resources/db.properties
