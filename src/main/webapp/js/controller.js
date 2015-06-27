@@ -1,21 +1,21 @@
 
 angular.module('proApp.controller', []);
 
-angular.module('proApp.controller').controller('ProductCtrl', ['ProductFactory', productController]);
+angular.module('proApp.controller').controller('ProductCtrl', ['$routeParams', 'ProductFactory', productController]);
 
-function productController(ProductFactory) {
+function productController($routeParams, ProductFactory) {
 	var view = this;
 	view.products = [];
 	ProductFactory.query({}, function (productFactory) {
 		view.products = productFactory;
 	});
 
-	view.product = new ProductFactory;
+	view.product = new ProductFactory.get({id:$routeParams.id});
 }
 
-angular.module('proApp.controller').controller('ProducerCtrl', ['ProducerFactory', producerController]);
+angular.module('proApp.controller').controller('ProducerCtrl', ['$routeParams', 'ProducerFactory', producerController]);
 
-function producerController(ProducerFactory) {
+function producerController($routeParams, ProducerFactory) {
 	var view = this;
 	view.producers = [];
 	ProducerFactory.query({}, function (producerFactory) {

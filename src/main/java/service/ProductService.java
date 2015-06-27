@@ -29,4 +29,11 @@ public class ProductService {
 		productDao.closeConnection();
 		return product;
 	}
+
+	public Product selectById(long id) {
+		productDao.getConnection();
+		Product product = productDao.selectById(id);
+		productDao.closeConnection();
+		return product;
+	}
 }

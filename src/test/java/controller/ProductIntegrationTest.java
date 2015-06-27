@@ -15,9 +15,18 @@ public class ProductIntegrationTest {
 	private static final Logger logger = Logger.getLogger(ProductIntegrationTest.class.getName());
 	private static String PRODUCT_URL = "http://localhost:8080/rs/product";
 
-	@Test public void testProduct() throws Exception {
+	@Test public void testProducts() throws Exception {
 		Client client = Client.create();
 		WebResource webResource = client.resource(PRODUCT_URL);
+		String response = webResource.get(String.class);
+
+		assertThat(response, is(not("")));
+		logger.info(response);
+	}
+
+	@Test public void testProduct() throws Exception {
+		Client client = Client.create();
+		WebResource webResource = client.resource(PRODUCT_URL + "/1");
 		String response = webResource.get(String.class);
 
 		assertThat(response, is(not("")));

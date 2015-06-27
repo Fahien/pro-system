@@ -71,4 +71,27 @@ public class ProductDAO extends AbstractDAO {
 		}
 		return products;
 	}
+
+	public Product selectById(long id) {
+		Product product = null;
+		PreparedStatement selectAll = null;
+		String sql = "SELECT * FROM product WHERE id=?";
+		try {
+			selectAll = connection.prepareStatement(sql);
+			selectAll.setLong(1, id);
+			ResultSet result = selectAll.executeQuery();
+			if (result.next()) {
+				product = new Product();
+				product.setId(result.getLong(1));
+				product.setName(result.getString(2));
+				product.setDescription(result.getString(3));
+				product.setImage(result.getString(4));
+				product.setPrice(result.getFloat(5));
+				product.setGain(result.getFloat(6));
+			}
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return product;
+	}
 }

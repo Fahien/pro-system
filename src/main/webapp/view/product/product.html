@@ -1,7 +1,5 @@
-<p>
-	<a class="btn btn-primary" href="#/product/create">Create product</a>
-</p>
-<ul>
-	<li ng-repeat="product in view.products">Product: {{ product.id +
-		' ' + product.name }}</li>
-</ul>
+<h3>{{ view.product.name }}</h3>
+<p>{{ view.product.description }}</p>
+<p>{{ view.product.price + view.product.gain | currency }}</p>
+<img ng-src="{{view.product.image}}" alt="{{view.product.name}}" />
+<p>{{ view.product.producer }}</p>

@@ -21,6 +21,7 @@ public class ProductDAOTest {
 
 	@Test public void insertTest() {
 		Product product = new Product();
+		product.setId(1);
 		product.setName("Name");
 		product.setDescription("Description");
 		product.setImage("Url");
@@ -35,12 +36,21 @@ public class ProductDAOTest {
 		dao.closeConnection();
 	}
 
-	@Test public void selectTest() {
+	@Test public void selectAllTest() {
 		ProductDAO dao = ProductDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
 		List<Product> products = dao.selectAll();
 		assertFalse(products.size() == 0);
+		dao.closeConnection();
+	}
+
+	@Test public void selectTest() {
+		ProductDAO dao = ProductDAO.getInstance();
+		Connection connection = dao.getConnection();
+		assertTrue(connection != null);
+		Product product = dao.selectById(1);
+		assertFalse(product == null);
 		dao.closeConnection();
 	}
 
