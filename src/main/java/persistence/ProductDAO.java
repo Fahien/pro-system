@@ -49,6 +49,25 @@ public class ProductDAO extends AbstractDAO {
 		return product;
 	}
 
+	public Product update(Product product) {
+		PreparedStatement insertProduct = null;
+		String sql = "UPDATE product set name=?, description=?, image=?, price=?, gain=? where id=?";
+		try {
+			int i = 0;
+			insertProduct = connection.prepareStatement(sql);
+			insertProduct.setString(++i, product.getName());
+			insertProduct.setString(++i, product.getDescription());
+			insertProduct.setString(++i, product.getImage());
+			insertProduct.setFloat(++i, product.getPrice());
+			insertProduct.setFloat(++i, product.getGain());
+			insertProduct.setFloat(++i, product.getId());
+			insertProduct.executeUpdate();
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return product;
+	}
+
 	public List<Product> selectAll() {
 		List<Product> products = new ArrayList<>();
 		PreparedStatement selectAll = null;

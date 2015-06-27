@@ -1,5 +1,6 @@
 package persistence;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -51,6 +52,23 @@ public class ProductDAOTest {
 		assertTrue(connection != null);
 		Product product = dao.selectById(1);
 		assertFalse(product == null);
+		dao.closeConnection();
+	}
+
+	@Test public void updateTest() {
+		Product product = new Product();
+		product.setId(1);
+		product.setName("Updated");
+		product.setDescription("Description");
+		product.setImage("Url");
+		product.setPrice(10.5f);
+		product.setGain(1.0f);
+
+		ProductDAO dao = ProductDAO.getInstance();
+		Connection connection = dao.getConnection();
+		assertTrue(connection != null);
+		product = dao.update(product);
+		assertEquals(product.getName(), "Updated");
 		dao.closeConnection();
 	}
 

@@ -36,4 +36,10 @@ public class ProductService {
 		productDao.closeConnection();
 		return product;
 	}
+
+	public Product update(Product product) {
+		productDao.getConnection();
+		product = productDao.update(product);
+		return product;
+	}
 }

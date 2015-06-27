@@ -3,7 +3,9 @@ angular.module('proApp.service', ['ngResource']);
 angular.module('proApp.service').factory('ProductFactory', productFactory);
 
 function productFactory($resource) {
-	return $resource('/rs/product/:id', {}, {})
+	return $resource('/rs/product/:id', {}, {
+		'update': {method:'PUT'}
+	})
 }
 
 angular.module('proApp.service').factory('ProducerFactory', producerFactory);

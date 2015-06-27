@@ -1,7 +1,20 @@
 <p>
 	<a class="btn btn-primary" href="#/product/create">Create product</a>
 </p>
-<ul>
-	<li ng-repeat="product in view.products">Product: {{ product.id +
-		' ' + product.name }} <a ng-href="#/product/{{ product.id }}" class="btn btn-default">View</a></li>
-</ul>
+<table class="table">
+	<tbody>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Actions</th>
+		</tr>
+		<tr ng-repeat="product in view.products">
+			<td>{{ product.id }}</td>
+			<td>{{ product.name }}</td>
+			<td><a ng-href="#/product/{{ product.id }}"
+				class="btn btn-primary">View</a> <a
+				ng-href="#/product/edit/{{ product.id }}" class="btn btn-default">Update</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

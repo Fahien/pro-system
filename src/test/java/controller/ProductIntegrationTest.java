@@ -42,4 +42,14 @@ public class ProductIntegrationTest {
 		assertThat(response.getStatus(), is(200));
 		logger.info(response.getEntity(String.class));
 	}
+
+	@Test public void testUpdate() throws Exception {
+		Client client = Client.create();
+		WebResource webResource = client.resource(PRODUCT_URL);
+		String product = "{\"id\":1,\"name\":\"ProductUpdated\",\"description\":\"Description\",\"image\":null,\"price\":0.0,\"gain\":0.0,\"producer\":null}";
+		ClientResponse response = webResource.accept("application/json").type("application/json").put(ClientResponse.class, product);
+
+		assertThat(response.getStatus(), is(200));
+		logger.info(response.getEntity(String.class));
+	}
 }
