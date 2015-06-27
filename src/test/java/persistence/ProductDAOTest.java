@@ -20,6 +20,16 @@ public class ProductDAOTest {
 		dao.closeConnection();
 	}
 
+	@Test public void selectTest() {
+		insertTest();
+		ProductDAO dao = ProductDAO.getInstance();
+		Connection connection = dao.getConnection();
+		assertTrue(connection != null);
+		Product product = dao.selectById(1);
+		assertFalse(product == null);
+		dao.closeConnection();
+	}
+
 	@Test public void insertTest() {
 		Product product = new Product();
 		product.setId(1);
@@ -46,15 +56,6 @@ public class ProductDAOTest {
 		dao.closeConnection();
 	}
 
-	@Test public void selectTest() {
-		ProductDAO dao = ProductDAO.getInstance();
-		Connection connection = dao.getConnection();
-		assertTrue(connection != null);
-		Product product = dao.selectById(1);
-		assertFalse(product == null);
-		dao.closeConnection();
-	}
-
 	@Test public void updateTest() {
 		Product product = new Product();
 		product.setId(1);
@@ -69,6 +70,16 @@ public class ProductDAOTest {
 		assertTrue(connection != null);
 		product = dao.update(product);
 		assertEquals(product.getName(), "Updated");
+		dao.closeConnection();
+	}
+
+	@Test public void deleteTest() {
+		ProductDAO dao = ProductDAO.getInstance();
+		Connection connection = dao.getConnection();
+		assertTrue(connection != null);
+		dao.delete(1);
+		Product product = dao.selectById(1);
+		assertEquals(product, null);
 		dao.closeConnection();
 	}
 

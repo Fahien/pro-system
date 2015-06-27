@@ -40,6 +40,14 @@ public class ProductService {
 	public Product update(Product product) {
 		productDao.getConnection();
 		product = productDao.update(product);
+		productDao.closeConnection();
 		return product;
+	}
+
+	public boolean delete(long id) {
+		productDao.getConnection();
+		boolean result = productDao.delete(id);
+		productDao.closeConnection();
+		return result;
 	}
 }

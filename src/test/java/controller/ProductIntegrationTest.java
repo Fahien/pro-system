@@ -26,11 +26,18 @@ public class ProductIntegrationTest {
 
 	@Test public void testProduct() throws Exception {
 		Client client = Client.create();
-		WebResource webResource = client.resource(PRODUCT_URL + "/1");
-		String response = webResource.get(String.class);
+		WebResource webResource = client.resource(PRODUCT_URL);
+		String product = "{\"id\":1,\"name\":\"Product\",\"description\":\"Description\",\"image\":null,\"price\":0.0,\"gain\":0.0,\"producer\":null}";
+		ClientResponse response = webResource.accept("application/json").type("application/json").post(ClientResponse.class, product);
 
-		assertThat(response, is(not("")));
-		logger.info(response);
+		assertThat(response.getStatus(), is(200));
+		logger.info(response.getEntity(String.class));
+
+		webResource = client.resource(PRODUCT_URL + "/1");
+		String resp = webResource.get(String.class);
+
+		assertThat(resp, is(not("")));
+		logger.info(resp);
 	}
 
 	@Test public void testInsert() throws Exception {
@@ -51,5 +58,19 @@ public class ProductIntegrationTest {
 
 		assertThat(response.getStatus(), is(200));
 		logger.info(response.getEntity(String.class));
+	}
+
+	@Test public void testDelete() throws Exception {
+		Client client = Client.create();
+		
+		WebResource webResource = client.resource(PRODUCT_URL);
+		String product = "{\"id\":1,\"name\":\"Product\",\"description\":\"Description\",\"image\":null,\"price\":0.0,\"gain\":0.0,\"producer\":null}";
+		ClientResponse response = webResource.accept("application/json").type("application/json").post(ClientResponse.class, product);
+
+		assertThat(response.getStatus(), is(200));
+		logger.info(response.getEntity(String.class));
+
+		webResource = client.resource(PRODUCT_URL + "/1");
+		webResource.delete();
 	}
 }

@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -36,5 +37,10 @@ public class ProductController {
 	@PUT public Product update(Product product) {
 		product = productService.update(product);
 		return product;
+	}
+
+	@Path("{id}")
+	@DELETE public boolean delete(@PathParam("id") long id) {
+		return productService.delete(id);
 	}
 }

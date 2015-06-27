@@ -3,3 +3,4 @@
 <p>{{ view.product.price + view.product.gain | currency }}</p>
 <img ng-src="{{view.product.image}}" alt="{{view.product.name}}" />
 <p>{{ view.product.producer }}</p>
+<p><button ng-click="view.product.$delete({id:view.product.id})" class="btn btn-default">Delete</button></p>

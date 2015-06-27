@@ -10,7 +10,9 @@ function productController($routeParams, ProductFactory) {
 		view.products = productFactory;
 	});
 
-	view.product = new ProductFactory.get({id:$routeParams.id});
+	if ($routeParams.id) {
+		view.product = new ProductFactory.get({id:$routeParams.id});
+	}
 }
 
 angular.module('proApp.controller').controller('ProducerCtrl', ['$routeParams', 'ProducerFactory', producerController]);
