@@ -14,7 +14,7 @@ public class OrderListService {
 		return INSTANCE;
 	}
 
-	private OrderListDAO orderDao = OrderListDAO.getInstance();
+	private  OrderListDAO orderDao = OrderListDAO.getInstance();
 
 	public List<OrderList> selectAll() {
 		orderDao.getConnection();
@@ -28,5 +28,26 @@ public class OrderListService {
 		orderDao.insert(order);
 		orderDao.closeConnection();
 		return order;
+	}
+
+	public OrderList selectById(long id) {
+		orderDao.getConnection();
+		OrderList orderlist= orderDao.selectById(id);
+		orderDao.closeConnection();
+		return orderlist;
+	}
+
+	public OrderList update(OrderList order) {
+		orderDao.getConnection();
+		order = orderDao.update(order);
+		orderDao.closeConnection();
+		return order;
+	}
+
+	public boolean delete(long id) {
+		orderDao.getConnection();
+		boolean result = orderDao.delete(id);
+		orderDao.closeConnection();
+		return result;
 	}
 }

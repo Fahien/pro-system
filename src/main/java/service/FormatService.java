@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+
 import model.Format;
 import persistence.FormatDAO;
 
@@ -29,4 +30,26 @@ public class FormatService {
 		formatDao.closeConnection();
 		return format;
 	}
+
+	public Format selectById(long id) {
+		formatDao.getConnection();
+		Format format = formatDao.selectById(id);
+		formatDao.closeConnection();
+		return format;
+	}
+
+	public Format update(Format format) {
+		formatDao.getConnection();
+		format = formatDao.update(format);
+		formatDao.closeConnection();
+		return format;
+	}
+
+	public boolean delete(long id) {
+		formatDao.getConnection();
+		boolean result = formatDao.delete(id);
+		formatDao.closeConnection();
+		return result;
+	}
+
 }

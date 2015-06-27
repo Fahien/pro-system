@@ -29,4 +29,25 @@ public class ProducerService {
 		producerDao.closeConnection();
 		return producer;
 	}
+
+	public Producer selectById(long id) {
+		producerDao.getConnection();
+		Producer producer = producerDao.selectById(id);
+		producerDao.closeConnection();
+		return producer;
+	}
+
+	public Producer update(Producer producer) {
+		producerDao.getConnection();
+		producer = producerDao.update(producer);
+		producerDao.closeConnection();
+		return producer;
+	}
+
+	public boolean delete(long id) {
+		producerDao.getConnection();
+		boolean result = producerDao.delete(id);
+		producerDao.closeConnection();
+		return result;
+	}
 }

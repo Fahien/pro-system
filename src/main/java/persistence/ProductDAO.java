@@ -60,7 +60,7 @@ public class ProductDAO extends AbstractDAO {
 			update.setString(++i, product.getImage());
 			update.setFloat(++i, product.getPrice());
 			update.setFloat(++i, product.getGain());
-			update.setFloat(++i, product.getId());
+			update.setLong(++i, product.getId());
 			update.executeUpdate();
 		} catch (SQLException e) {
 			logger.warning(e.getMessage());

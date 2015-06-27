@@ -65,4 +65,51 @@ public class FormatDAO extends AbstractDAO {
 		}
 		return formats;
 	}
+
+	public Format selectById(long id) {
+		Format format = null;
+		PreparedStatement select = null;
+		String sql = "SELECT * FROM format WHERE id=?";
+		try {
+			select = connection.prepareStatement(sql);
+			select.setLong(1, id);
+			ResultSet result = select.executeQuery();
+			if (result.next()) {
+				format = new Format();
+				format.setId(result.getLong(1));
+				format.setValue(result.getInt(2));
+			}
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return format;
+	}
+
+	public Format update(Format format) {
+		PreparedStatement update = null;
+		String sql = "UPDATE format set value=?, where id=?";
+		try {
+			int i = 0;
+			update = connection.prepareStatement(sql);
+			update.setInt(++i, format.getValue());
+			update.executeUpdate();
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return format;
+	}
+
+	public boolean delete(long id) {
+		boolean result = false;
+		PreparedStatement delete = null;
+		String sql = "DELETE FROM format WHERE id=?";
+		try {
+			delete = connection.prepareStatement(sql);
+			delete.setLong(1, id);
+			result = delete.execute();
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return result;
+	}
 }

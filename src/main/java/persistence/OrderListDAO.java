@@ -85,4 +85,54 @@ public class OrderListDAO extends AbstractDAO {
 		}
 		return orders;
 	}
+
+	public OrderList selectById(long id) {
+		OrderList orderlist = null;
+		PreparedStatement select = null;
+		String sql = "SELECT * FROM orderlist WHERE id=?";
+		try {
+			select = connection.prepareStatement(sql);
+			select.setLong(1, id);
+			ResultSet result = select.executeQuery();
+			if (result.next()) {
+				orderlist = new OrderList();
+				orderlist.setId(result.getLong(1));
+				orderlist.setDate(result.getDate(2));
+				orderlist.setDelivery(result.getDate(3));
+
+			}
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return orderlist;
+	}
+
+	public OrderList update(OrderList order) {
+		PreparedStatement update = null;
+		String sql = "UPDATE orderlist set date=?, delivery=?, where id=?";
+		try {
+			int i = 0;
+			update = connection.prepareStatement(sql);
+			update.setDate(++i, order.getDate());
+			update.setDate(++i, order.getDelivery());
+			update.executeUpdate();
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return order;
+	}
+
+	public boolean delete(long id) {
+		boolean result = false;
+		PreparedStatement delete = null;
+		String sql = "DELETE FROM orderlist WHERE id=?";
+		try {
+			delete = connection.prepareStatement(sql);
+			delete.setLong(1, id);
+			result = delete.execute();
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return result;
+	}
 }
