@@ -1,0 +1,21 @@
+<p>
+	<button class="btn btn-primary" ng-click="view.order.$save()">Create order</button>
+</p>
+<table class="table">
+	<tbody>
+		<tr>
+			<th>Id</th>
+			<th>Date</th>
+			<th>Delivery</th>
+			<th>Actions</th>
+		<tr ng-repeat="order in view.orders">
+			<td>{{ order.id }}</td>
+			<td>{{ order.date }}</td>
+			<td>{{ order.delivery }}</td>
+			<td><a ng-href="#/order/{{ order.id }}"
+				class="btn btn-primary">View</a> <a
+				ng-href="#/order/edit/{{ order.id }}" class="btn btn-default">Update</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

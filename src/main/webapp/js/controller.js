@@ -24,31 +24,39 @@ function producerController($routeParams, ProducerFactory) {
 		view.producers = producerFactory;
 	});
 
-	view.producer = new ProducerFactory;
+	if ($routeParams.id) {
+		view.producer = new ProducerFactory.get({id:$routeParams.id});
+	}
 }
 
-angular.module('proApp.controller').controller('FormatCtrl', ['FormatFactory', formatController]);
+angular.module('proApp.controller').controller('FormatCtrl', ['$routeParams', 'FormatFactory', formatController]);
 
-function formatController(FormatFactory) {
+function formatController($routeParams, FormatFactory) {
 	var view = this;
 	view.formats = [];
 	FormatFactory.query({}, function (formatFactory) {
 		view.formats = formatFactory;
 	});
 
-	view.format = new FormatFactory;
+	if ($routeParams.id) {
+		view.format = new FormatFactory.get({id:$routeParams.id});
+	}
 }
 
-angular.module('proApp.controller').controller('OrderCtrl', ['OrderFactory', orderController]);
+angular.module('proApp.controller').controller('OrderCtrl', ['$routeParams', 'OrderFactory', orderController]);
 
-function orderController(OrderFactory) {
+function orderController($routeParams, OrderFactory) {
 	var view = this;
 	view.orders = [];
 	OrderFactory.query({}, function (orderFactory) {
 		view.orders = orderFactory;
 	});
 
-	view.order = new OrderFactory;
-	view.order.date = Date.now();
-	view.order.$save();
+	if ($routeParams.id) {
+		view.order = new OrderFactory.get({id:$routeParams.id});
+	}
+	else {
+		view.order = new OrderFactory;
+		view.order.date = Date.now();
+	}
 }

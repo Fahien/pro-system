@@ -6,10 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
+import model.Format;
 import model.OrderList;
+import model.Producer;
 import model.Product;
 
 public class OrderListDAO extends AbstractDAO {
@@ -50,14 +51,14 @@ public class OrderListDAO extends AbstractDAO {
 
 		sql = "INSERT INTO orderlistcontainsproduct(idOrder, idProduct, idFormat, idProducer, number)";
 		try {
-			for (Map.Entry<Product, Integer> entry : order.getProducts().entrySet()) {
+			for (Product product : order.getProducts()) {
 				insert = connection.prepareStatement(sql + "VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 				int i = 0;
 				insert.setLong(++i, order.getId());
-				insert.setLong(++i, entry.getKey().getId());
-				insert.setLong(++i, entry.getKey().getFormat().getId());
-				insert.setLong(++i, entry.getKey().getProducer().getId());
-				insert.setLong(++i, entry.getValue());
+				insert.setLong(++i, product.getId());
+				insert.setLong(++i, product.getFormat().getId());
+				insert.setLong(++i, product.getProducer().getId());
+				insert.setLong(++i, product.getNumber());
 				insert.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -100,6 +101,27 @@ public class OrderListDAO extends AbstractDAO {
 				orderlist.setDate(result.getDate(2));
 				orderlist.setDelivery(result.getDate(3));
 
+			}
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+
+		sql = "SELECT * FROM orderlistcontainsproduct WHERE idOrder=?";
+		try {
+			select = connection.prepareStatement(sql);
+			select.setLong(1, id);
+			ResultSet result = select.executeQuery();
+			while (result.next()) {
+				Product product = new Product();
+				product.setId(result.getLong(2));
+				Format format = new Format();
+				format.setId(result.getLong(3));
+				product.setFormat(format);
+				Producer producer = new Producer();
+				producer.setId(result.getLong(4));
+				product.setProducer(producer);
+				product.setNumber(result.getInt(5));
+				orderlist.addProduct(product);
 			}
 		} catch (SQLException e) {
 			logger.warning(e.getMessage());

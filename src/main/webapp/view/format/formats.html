@@ -1,0 +1,16 @@
+<p>
+	<a class="btn btn-primary" href="#/format/create">Create format</a>
+</p>
+<table class="table">
+<tbody>
+<tr><th>Id</th><th>Value</th><th>Action</th></tr>
+	<tr ng-repeat="format in view.formats">
+	<td>{{ format.id }}</td>
+	<td>{{ format.value }}</td>
+	<td>
+		<a ng-href="#/format/edit/{{ format.id }}" class="btn btn-default">Update</a>
+		<button ng-click="format.$delete({id:format.id})" class="btn btn-danger">Delete</button>
+	</td>
+	</tr>
+</tbody>
+</table>

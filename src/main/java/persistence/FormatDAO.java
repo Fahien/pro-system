@@ -112,4 +112,20 @@ public class FormatDAO extends AbstractDAO {
 		}
 		return result;
 	}
+
+	public Format select(Format format) {
+		PreparedStatement select = null;
+		String sql = "SELECT * FROM format WHERE id=?";
+		try {
+			select = connection.prepareStatement(sql);
+			select.setLong(1, format.getId());
+			ResultSet result = select.executeQuery();
+			if (result.next()) {
+				format.setValue(result.getInt(2));
+			}
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return format;
+	}
 }

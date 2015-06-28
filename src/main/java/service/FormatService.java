@@ -51,5 +51,4 @@ public class FormatService {
 		formatDao.closeConnection();
 		return result;
 	}
-
 }

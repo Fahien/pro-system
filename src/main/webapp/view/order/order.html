@@ -1,7 +1,22 @@
-<p>
-	<a class="btn btn-primary" href="#/order/create">Create order</a>
-</p>
-<ul>
-	<li ng-repeat="order in view.orders">Order: {{ order.id +
-		' ' + order.date }}</li>
-</ul>
+<h3>{{ view.order.id + ' - ' + view.order.date }}</h3>
+<p>{{ view.order.delivery }}</p>
+<p><button ng-click="view.order.$delete({id:view.order.id})" class="btn btn-default">Delete</button></p>
+<table class="table">
+	<tbody>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Format</th>
+			<th>Producer</th>
+			<th>Number</th>
+		</tr>
+		<tr ng-repeat="product in view.order.products">
+			<td>{{ product.id }}</td>
+			<td><a ng-href="#/product/{{ product.id }}"
+				class="btn btn-primary">{{ product.name }}</a></td>
+			<td>{{ product.format.value }}</td>
+			<td>{{ product.producer.name }}</td>
+			<td>{{ product.number }}</td>
+		</tr>
+	</tbody>
+</table>

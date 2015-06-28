@@ -1,7 +1,7 @@
-<p>
-	<a class="btn btn-primary" href="#/producer/create">Create producer</a>
-</p>
-<ul>
-	<li ng-repeat="producer in view.producers">Producer: {{ producer.id +
-		' ' + producer.name }}</li>
-</ul>
+<h3>{{ view.producer.name }}</h3>
+<p>{{ view.producer.address }}</p>
+<p>{{ view.producer.piva }}</p>
+<p>{{ view.producer.email }}</p>
+<p>{{ view.producer.telephone }}</p>
+<p>{{ view.producer.iban }}</p>
+<p><button ng-click="view.producer.$delete({id:view.producer.id})" class="btn btn-default">Delete</button></p>

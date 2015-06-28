@@ -39,12 +39,13 @@ public class OrderListDAOTest {
 			product.setName("Product" + i);
 			product.setFormat(format);
 			product.setProducer(producer);
+			product.setNumber(i);
 			ProductDAO productDao = ProductDAO.getInstance();
 			productDao.getConnection();
 			product = productDao.insert(product);
 			productDao.closeConnection();
 
-			order.addProduct(product, i);
+			order.addProduct(product);
 		}
 
 		OrderListDAO dao = OrderListDAO.getInstance();
@@ -56,12 +57,15 @@ public class OrderListDAOTest {
 	}
 
 	@Test public void selectTest() {
-		insertTest();
+		OrderList order = new OrderList();
+		order.setId(2);
+		order.setDate(Date.valueOf("2015-06-28"));
+		
 		OrderListDAO dao = OrderListDAO.getInstance();
-		Connection connection = dao.getConnection();
-		assertTrue(connection != null);
-		OrderList orderlist= dao.selectById(1);
-		assertFalse(orderlist == null);
+		dao.getConnection();
+		order = dao.insert(order);
+		order= dao.selectById(2);
+		assertFalse(order == null);
 		dao.closeConnection();
 	}
 
@@ -80,11 +84,19 @@ public class OrderListDAOTest {
 	}
 
 	@Test public void deleteTest() {
+		OrderList order = new OrderList();
+		order.setId(2);
+		order.setDate(Date.valueOf("2015-06-25"));
+		
 		OrderListDAO dao = OrderListDAO.getInstance();
 		Connection connection = dao.getConnection();
+		assertTrue (connection != null);
+		order = dao.insert(order);
+		assertFalse(order.getId() == 0);
+
 		assertTrue(connection != null);
-		dao.delete(1);
-		OrderList order = dao.selectById(1);
+		dao.delete(2);
+		order = dao.selectById(2);
 		assertEquals(order, null);
 		dao.closeConnection();
 	}

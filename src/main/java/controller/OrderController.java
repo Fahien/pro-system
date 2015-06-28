@@ -43,5 +43,4 @@ public class OrderController {
 	@DELETE public boolean delete(@PathParam("id") long id) {
 		return orderService.delete(id);
 	}
-
 }

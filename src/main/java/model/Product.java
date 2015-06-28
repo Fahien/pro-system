@@ -18,6 +18,8 @@ public class Product {
 
 	private float gain;
 
+	private int number;
+
 	public long getId() {
 		return id;
 	}
@@ -80,5 +82,13 @@ public class Product {
 
 	public void setGain(float gain) {
 		this.gain = gain;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 }

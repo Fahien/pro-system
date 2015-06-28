@@ -28,7 +28,6 @@ public class ClientDAOTest {
 		client.setTelephone("telephone");
 		client.setEmail("email");
 
-
 		ClientDAO dao = ClientDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue (connection != null);
@@ -75,5 +74,4 @@ public class ClientDAOTest {
 		assertEquals(client, null);
 		dao.closeConnection();
 	}
-
 }

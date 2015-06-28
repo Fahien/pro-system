@@ -133,4 +133,25 @@ public class ProducerDAO extends AbstractDAO {
 		}
 		return result;
 	}
+
+	public Producer select(Producer producer) {
+		PreparedStatement select = null;
+		String sql = "SELECT * FROM producer WHERE id=?";
+		try {
+			select = connection.prepareStatement(sql);
+			select.setLong(1, producer.getId());
+			ResultSet result = select.executeQuery();
+			if (result.next()) {
+				producer.setName(result.getString(2));
+				producer.setAddress(result.getString(3));
+				producer.setPiva(result.getString(4));
+				producer.setEmail(result.getString(5));
+				producer.setTelephone(result.getString(6));
+				producer.setIban(result.getString(7));
+			}
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return producer;
+	}
 }

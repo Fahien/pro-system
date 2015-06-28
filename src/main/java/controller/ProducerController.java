@@ -43,5 +43,4 @@ public class ProducerController {
 	@DELETE public boolean delete(@PathParam("id") long id) {
 		return producerService.delete(id);
 	}
-
 }

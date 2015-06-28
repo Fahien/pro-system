@@ -1,0 +1,30 @@
+<p>
+	<a class="btn btn-primary" href="#/producer/create">Create producer</a>
+</p>
+<table class="table">
+	<tbody>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Address</th>
+			<th>Partita IVA</th>
+			<th>E-mail</th>
+			<th>Telephone</th>
+			<th>IBAN</th>
+			<th>Action</th>
+		</tr>
+		<tr ng-repeat="producer in view.producers">
+			<td>{{ producer.id }}</td>
+			<td>{{ producer.name }}</td>
+			<td>{{ producer.address }}</td>
+			<td>{{ producer.piva }}</td>
+			<td>{{ producer.email }}</td>
+			<td>{{ producer.telephone }}</td>
+			<td>{{ producer.iban }}</td>
+			<td>
+				<a ng-href="#/producer/{{ producer.id }}" class="btn btn-primary">View</a>
+				<a ng-href="#/producer/edit/{{ producer.id }}" class="btn btn-default">Update</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,12 +1,8 @@
 package model;
 
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-
-import util.ProductKeyDeserializer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderList {
 
@@ -16,8 +12,7 @@ public class OrderList {
 
 	private Date delivery;
 
-	@JsonDeserialize(keyUsing = ProductKeyDeserializer.class)
-	private Map<Product, Integer> products = new HashMap<>();
+	private List<Product> products = new ArrayList<>();
 
 	public long getId() {
 		return id;
@@ -43,15 +38,15 @@ public class OrderList {
 		this.delivery = delivery;
 	}
 
-	public Map<Product, Integer> getProducts() {
+	public List<Product> getProducts() {
 		return products;
 	}
 
-	public void setProducts(Map<Product, Integer> product) {
+	public void setProducts(List<Product> product) {
 		this.products = product;
 	}
 
-	public void addProduct(Product product, int number) {
-		products.put(product, number);
+	public void addProduct(Product product) {
+		products.add(product);
 	}
 }

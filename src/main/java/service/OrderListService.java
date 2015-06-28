@@ -2,8 +2,14 @@ package service;
 
 import java.util.List;
 
+import model.Format;
 import model.OrderList;
+import model.Producer;
+import model.Product;
+import persistence.FormatDAO;
 import persistence.OrderListDAO;
+import persistence.ProducerDAO;
+import persistence.ProductDAO;
 
 public class OrderListService {
 	private static final OrderListService INSTANCE = new OrderListService();
@@ -14,7 +20,10 @@ public class OrderListService {
 		return INSTANCE;
 	}
 
-	private  OrderListDAO orderDao = OrderListDAO.getInstance();
+	private OrderListDAO orderDao = OrderListDAO.getInstance();
+	private ProductDAO productDao = ProductDAO.getInstance();
+	private FormatDAO formatDao = FormatDAO.getInstance();
+	private ProducerDAO producerDao = ProducerDAO.getInstance();
 
 	public List<OrderList> selectAll() {
 		orderDao.getConnection();
@@ -33,6 +42,19 @@ public class OrderListService {
 	public OrderList selectById(long id) {
 		orderDao.getConnection();
 		OrderList orderlist= orderDao.selectById(id);
+		for (Product product : orderlist.getProducts()) {
+			Format format = product.getFormat();
+			formatDao.getConnection();
+			formatDao.select(format);
+			formatDao.closeConnection();
+			Producer producer = product.getProducer();
+			producerDao.getConnection();
+			producerDao.select(producer);
+			producerDao.closeConnection();
+			productDao.getConnection();
+			productDao.select(product);
+			productDao.closeConnection();
+		}
 		orderDao.closeConnection();
 		return orderlist;
 	}
