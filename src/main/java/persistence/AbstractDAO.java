@@ -45,7 +45,6 @@ public abstract class AbstractDAO implements DAO {
 		try {
 			Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection(dbUrl);
-			logger.info("Connection opened");
 		} catch (ClassNotFoundException e) {
 			logger.warning(e.getMessage());
 		} catch (SQLException e) {
@@ -58,7 +57,6 @@ public abstract class AbstractDAO implements DAO {
 		try {
 			if (connection != null) {
 				connection.close();
-				logger.info("Connection closed");
 			}
 		} catch (Exception e) { 
 			logger.warning(e.getMessage());

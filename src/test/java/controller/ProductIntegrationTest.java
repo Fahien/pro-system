@@ -27,7 +27,7 @@ public class ProductIntegrationTest {
 	@Test public void testProduct() throws Exception {
 		Client client = Client.create();
 		WebResource webResource = client.resource(PRODUCT_URL);
-		String product = "{\"id\":1,\"name\":\"Product\",\"description\":\"Description\",\"image\":null,\"price\":0.0,\"gain\":0.0,\"producer\":null}";
+		String product = "{\"id\":1,\"name\":\"Product\",\"description\":\"Description\",\"image\":null,\"price\":0.0,\"gain\":0.0,\"producer\":{\"id\":1}}";
 		ClientResponse response = webResource.accept("application/json").type("application/json").post(ClientResponse.class, product);
 
 		assertThat(response.getStatus(), is(200));
@@ -40,10 +40,26 @@ public class ProductIntegrationTest {
 		logger.info(resp);
 	}
 
+	@Test public void testProductName() throws Exception {
+		Client client = Client.create();
+		WebResource webResource = client.resource(PRODUCT_URL);
+		String product = "{\"id\":1,\"name\":\"Product\",\"description\":\"Description\",\"image\":null,\"price\":0.0,\"gain\":0.0,\"producer\":{\"id\":1}}";
+		ClientResponse response = webResource.accept("application/json").type("application/json").post(ClientResponse.class, product);
+
+		assertThat(response.getStatus(), is(200));
+		logger.info(response.getEntity(String.class));
+
+		webResource = client.resource(PRODUCT_URL + "/name/Product");
+		String resp = webResource.get(String.class);
+
+		assertThat(resp, is(not("")));
+		logger.info(resp);
+	}
+
 	@Test public void testInsert() throws Exception {
 		Client client = Client.create();
 		WebResource webResource = client.resource(PRODUCT_URL);
-		String product = "{\"id\":0,\"name\":\"Product\",\"description\":\"Description\",\"image\":null,\"price\":0.0,\"gain\":0.0,\"producer\":null}";
+		String product = "{\"id\":1,\"name\":\"Product\",\"description\":\"Description\",\"image\":null,\"price\":0.0,\"gain\":0.0,\"producer\":{\"id\":1}}";
 		ClientResponse response = webResource.accept("application/json").type("application/json").post(ClientResponse.class, product);
 
 		assertThat(response.getStatus(), is(200));
@@ -53,7 +69,7 @@ public class ProductIntegrationTest {
 	@Test public void testUpdate() throws Exception {
 		Client client = Client.create();
 		WebResource webResource = client.resource(PRODUCT_URL);
-		String product = "{\"id\":1,\"name\":\"ProductUpdated\",\"description\":\"Description\",\"image\":null,\"price\":0.0,\"gain\":0.0,\"producer\":null}";
+		String product = "{\"id\":1,\"name\":\"Product\",\"description\":\"Description\",\"image\":null,\"price\":0.0,\"gain\":0.0,\"producer\":{\"id\":1}}";
 		ClientResponse response = webResource.accept("application/json").type("application/json").put(ClientResponse.class, product);
 
 		assertThat(response.getStatus(), is(200));
@@ -64,7 +80,7 @@ public class ProductIntegrationTest {
 		Client client = Client.create();
 		
 		WebResource webResource = client.resource(PRODUCT_URL);
-		String product = "{\"id\":1,\"name\":\"Product\",\"description\":\"Description\",\"image\":null,\"price\":0.0,\"gain\":0.0,\"producer\":null}";
+		String product = "{\"id\":1,\"name\":\"Product\",\"description\":\"Description\",\"image\":null,\"price\":0.0,\"gain\":0.0,\"producer\":{\"id\":1}}";
 		ClientResponse response = webResource.accept("application/json").type("application/json").post(ClientResponse.class, product);
 
 		assertThat(response.getStatus(), is(200));

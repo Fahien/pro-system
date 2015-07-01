@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.Connection;
 import java.util.List;
 
+import model.Producer;
 import model.Product;
 
 import org.junit.Test;
@@ -30,7 +31,14 @@ public class ProductDAOTest {
 		dao.closeConnection();
 	}
 
-	@Test public void insertTest() {
+	public void insertTest() {
+		Producer producer = new Producer();
+		producer.setName("Producer");
+		ProducerDAO producerDao = ProducerDAO.getInstance();
+		producerDao.getConnection();
+		producer = producerDao.insert(producer);
+		producerDao.closeConnection();
+		
 		Product product = new Product();
 		product.setId(1);
 		product.setName("Name");
@@ -38,6 +46,7 @@ public class ProductDAOTest {
 		product.setImage("Url");
 		product.setPrice(10.5f);
 		product.setGain(1.0f);
+		product.setProducer(producer);
 
 		ProductDAO dao = ProductDAO.getInstance();
 		Connection connection = dao.getConnection();
@@ -52,6 +61,15 @@ public class ProductDAOTest {
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
 		List<Product> products = dao.selectAll();
+		assertFalse(products.size() == 0);
+		dao.closeConnection();
+	}
+	
+	@Test public void selectAllByNameTest() {
+		ProductDAO dao = ProductDAO.getInstance();
+		Connection connection = dao.getConnection();
+		assertTrue(connection != null);
+		List<Product> products = dao.selectAllByName("Updated");
 		assertFalse(products.size() == 0);
 		dao.closeConnection();
 	}
@@ -82,5 +100,4 @@ public class ProductDAOTest {
 		assertEquals(product, null);
 		dao.closeConnection();
 	}
-
 }

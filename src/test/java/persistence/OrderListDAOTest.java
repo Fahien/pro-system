@@ -15,7 +15,7 @@ import model.Product;
 import org.junit.Test;
 
 public class OrderListDAOTest {
-	@Test public void insertTest() {
+	public OrderList insertTest() {
 		OrderList order = new OrderList();
 		order.setId(1);
 		order.setDate(Date.valueOf("2015-06-25"));
@@ -54,6 +54,7 @@ public class OrderListDAOTest {
 		order = dao.insert(order);
 		assertFalse(order.getId() == 0);
 		dao.closeConnection();
+		return order;
 	}
 
 	@Test public void selectTest() {
@@ -70,16 +71,21 @@ public class OrderListDAOTest {
 	}
 
 	@Test public void updateTest() {
-		OrderList order = new OrderList();
+		OrderList order = insertTest();
 		order.setId(1);
 		order.setDate(Date.valueOf("2012-12-31"));
 		order.setDelivery(Date.valueOf("2013-1-1"));
+		
+		for (Product product : order.getProducts()) {
+			product.setNumber(product.getNumber() + 10);
+		}
 
 		OrderListDAO dao = OrderListDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
 		order = dao.update(order);
 		assertEquals(order.getDate(), Date.valueOf("2012-12-31"));
+		assertEquals(order.getProducts().size(), 10);
 		dao.closeConnection();
 	}
 

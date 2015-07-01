@@ -131,13 +131,39 @@ public class OrderListDAO extends AbstractDAO {
 
 	public OrderList update(OrderList order) {
 		PreparedStatement update = null;
-		String sql = "UPDATE orderlist set date=?, delivery=?, where id=?";
+		String sql = "UPDATE orderlist set date=?, delivery=? WHERE id=?";
 		try {
 			int i = 0;
 			update = connection.prepareStatement(sql);
 			update.setDate(++i, order.getDate());
 			update.setDate(++i, order.getDelivery());
+			update.setLong(++i, order.getId());
 			update.executeUpdate();
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		
+		sql = "DELETE FROM orderlistcontainsproduct WHERE idOrder=?";
+		try {
+			update = connection.prepareStatement(sql);
+			update.setLong(1, order.getId());
+			update.executeUpdate();
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		
+		sql = "INSERT INTO orderlistcontainsproduct(idOrder, idProduct, idFormat, idProducer, number)";
+		try {
+			for (Product product : order.getProducts()) {
+				update = connection.prepareStatement(sql + "VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+				int i = 0;
+				update.setLong(++i, order.getId());
+				update.setLong(++i, product.getId());
+				update.setLong(++i, product.getFormat().getId());
+				update.setLong(++i, product.getProducer().getId());
+				update.setLong(++i, product.getNumber());
+				update.executeUpdate();
+			}
 		} catch (SQLException e) {
 			logger.warning(e.getMessage());
 		}

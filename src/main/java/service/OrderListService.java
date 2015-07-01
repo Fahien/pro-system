@@ -60,6 +60,15 @@ public class OrderListService {
 	}
 
 	public OrderList update(OrderList order) {
+		formatDao.getConnection();
+		for (Product product : order.getProducts()) {
+			Format format = product.getFormat();
+			format = formatDao.selectByValue(format);
+			if (format.getId() == 0) {
+				format = formatDao.insert(format);
+			}
+		}
+		formatDao.closeConnection();
 		orderDao.getConnection();
 		order = orderDao.update(order);
 		orderDao.closeConnection();

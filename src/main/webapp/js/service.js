@@ -8,6 +8,12 @@ function productFactory($resource) {
 	})
 }
 
+angular.module('proApp.service').factory('NamedProductFactory', namedProductFactory);
+
+function namedProductFactory($resource) {
+	return $resource('/rs/product/name/:name', {}, {})
+}
+
 angular.module('proApp.service').factory('ProducerFactory', producerFactory);
 
 function producerFactory($resource) {

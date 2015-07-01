@@ -43,9 +43,9 @@ function formatController($routeParams, FormatFactory) {
 	}
 }
 
-angular.module('proApp.controller').controller('OrderCtrl', ['$routeParams', 'OrderFactory', orderController]);
+angular.module('proApp.controller').controller('OrderCtrl', ['$routeParams', 'OrderFactory', 'NamedProductFactory', orderController]);
 
-function orderController($routeParams, OrderFactory) {
+function orderController($routeParams, OrderFactory, ProductFactory) {
 	var view = this;
 	view.orders = [];
 	OrderFactory.query({}, function (orderFactory) {
@@ -58,5 +58,30 @@ function orderController($routeParams, OrderFactory) {
 	else {
 		view.order = new OrderFactory;
 		view.order.date = Date.now();
+		view.order.products = [];
+	}
+	
+	view.products = [];
+	view.productName = "";
+	view.search = search;
+	function search(productName) {
+		ProductFactory.query({name:productName}, function(productFactory) {
+			view.products = productFactory;
+		});
+	}
+	
+	view.add = add;
+	function add(product) {
+		var matches = view.order.products.filter(function(containedProduct) {
+			if (containedProduct.id == product.id && containedProduct.format.value == product.format.value) {
+				containedProduct.format = product.format;
+				containedProduct.number = product.number;
+				return true;
+			}
+			return false;
+		});
+		if (!matches.length) {
+			view.order.products.push(product);
+		}
 	}
 }

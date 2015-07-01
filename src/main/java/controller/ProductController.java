@@ -23,6 +23,12 @@ public class ProductController {
 		return products;
 	}
 
+	@Path("/name/{name}")
+	@GET public List<Product> selectAllByName(@PathParam("name") String name) {
+		List<Product> products = productService.selectAllByName(name);
+		return products;
+	}
+
 	@Path("{id}")
 	@GET public Product selectById(@PathParam("id") long id) {
 		Product product = productService.selectById(id);

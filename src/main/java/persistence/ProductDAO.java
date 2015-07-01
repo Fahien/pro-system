@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import model.Producer;
 import model.Product;
 
 public class ProductDAO extends AbstractDAO {
@@ -23,13 +24,13 @@ public class ProductDAO extends AbstractDAO {
 
 	public Product insert(Product product) {
 		PreparedStatement insert = null;
-		String sql = "INSERT INTO product (id, name, description, image, price, gain) ";
+		String sql = "INSERT INTO product (id, name, description, image, price, gain, producer) ";
 		try {
 			int i = 0;
 			if (product.getId() == 0) {
-				insert = connection.prepareStatement(sql + "VALUES (nextval('productsequence'), ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+				insert = connection.prepareStatement(sql + "VALUES (nextval('productsequence'), ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			} else {
-				insert = connection.prepareStatement(sql + "VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+				insert = connection.prepareStatement(sql + "VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 				insert.setLong(++i, product.getId());
 			}
 			insert.setString(++i, product.getName());
@@ -37,6 +38,7 @@ public class ProductDAO extends AbstractDAO {
 			insert.setString(++i, product.getImage());
 			insert.setFloat(++i, product.getPrice());
 			insert.setFloat(++i, product.getGain());
+			insert.setLong(++i, product.getProducer().getId());
 			insert.executeUpdate();
 			ResultSet result = insert.getGeneratedKeys();
 			if (result.next()) {
@@ -146,5 +148,32 @@ public class ProductDAO extends AbstractDAO {
 			logger.warning(e.getMessage());
 		}
 		return product;
+	}
+
+	public List<Product> selectAllByName(String name) {
+		List<Product> products = new ArrayList<>();
+		PreparedStatement selectAll = null;
+		String sql = "SELECT * FROM product WHERE name LIKE ?";
+		try {
+			selectAll = connection.prepareStatement(sql);
+			selectAll.setString(1, "%" + name + "%");
+			ResultSet result = selectAll.executeQuery();
+			while (result.next()) {
+				Product product = new Product();
+				product.setId(result.getLong(1));
+				product.setName(result.getString(2));
+				product.setDescription(result.getString(3));
+				product.setImage(result.getString(4));
+				product.setPrice(result.getFloat(5));
+				product.setGain(result.getFloat(6));
+				Producer producer = new Producer();
+				producer.setId(result.getLong(7));
+				product.setProducer(producer);
+				products.add(product);
+			}
+		} catch (SQLException e) {
+			logger.warning(e.getMessage());
+		}
+		return products;
 	}
 }

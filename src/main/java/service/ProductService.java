@@ -50,4 +50,11 @@ public class ProductService {
 		productDao.closeConnection();
 		return result;
 	}
+
+	public List<Product> selectAllByName(String name) {
+		productDao.getConnection();
+		List<Product> products = productDao.selectAllByName(name);
+		productDao.closeConnection();
+		return products;
+	}
 }
