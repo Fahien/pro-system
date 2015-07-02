@@ -13,7 +13,7 @@ import com.sun.jersey.api.client.WebResource;
 
 public class ProducerIntegrationTest {
 	private static final Logger logger = Logger.getLogger(ProducerIntegrationTest.class.getName());
-	private static String PRODUCER_URL = "http://localhost:8080/rs/producer";
+	private static final String PRODUCER_URL = "http://localhost:8080/rs/producer";
 
 	@Test public void testProducer() throws Exception {
 		Client client = Client.create();

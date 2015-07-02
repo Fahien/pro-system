@@ -38,7 +38,6 @@ public class FormatDAO extends AbstractDAO {
 				ResultSet result = insertFormat.getGeneratedKeys();
 				if (result.next()) {
 					format.setId(result.getLong(1));
-					logger.info("Format id: " + format.getId());
 				}
 			}
 		} catch (SQLException e) {
@@ -87,11 +86,12 @@ public class FormatDAO extends AbstractDAO {
 
 	public Format update(Format format) {
 		PreparedStatement update = null;
-		String sql = "UPDATE format set value=?, where id=?";
+		String sql = "UPDATE format set value=? WHERE id=?";
 		try {
 			int i = 0;
 			update = connection.prepareStatement(sql);
 			update.setInt(++i, format.getValue());
+			update.setLong(++i, format.getId());
 			update.executeUpdate();
 		} catch (SQLException e) {
 			logger.warning(e.getMessage());

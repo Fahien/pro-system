@@ -12,11 +12,15 @@ import model.OrderList;
 import model.Producer;
 import model.Product;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class OrderListDAOTest {
-	public OrderList insertTest() {
-		OrderList order = new OrderList();
+	private OrderList order;
+
+	@Before public void insertTest() {
+		order = new OrderList();
 		order.setId(1);
 		order.setDate(Date.valueOf("2015-06-25"));
 
@@ -29,7 +33,7 @@ public class OrderListDAOTest {
 
 		for (int i = 0; i < 10; i++) {
 			Format format = new Format();
-			format.setValue(300 + i * 10);
+			format.setValue(1000 + i * 10);
 			FormatDAO formatDao = FormatDAO.getInstance();
 			formatDao.getConnection();
 			format = formatDao.insert(format);
@@ -54,28 +58,13 @@ public class OrderListDAOTest {
 		order = dao.insert(order);
 		assertFalse(order.getId() == 0);
 		dao.closeConnection();
-		return order;
-	}
-
-	@Test public void selectTest() {
-		OrderList order = new OrderList();
-		order.setId(2);
-		order.setDate(Date.valueOf("2015-06-28"));
-		
-		OrderListDAO dao = OrderListDAO.getInstance();
-		dao.getConnection();
-		order = dao.insert(order);
-		order= dao.selectById(2);
-		assertFalse(order == null);
-		dao.closeConnection();
 	}
 
 	@Test public void updateTest() {
-		OrderList order = insertTest();
 		order.setId(1);
 		order.setDate(Date.valueOf("2012-12-31"));
 		order.setDelivery(Date.valueOf("2013-1-1"));
-		
+
 		for (Product product : order.getProducts()) {
 			product.setNumber(product.getNumber() + 10);
 		}
@@ -89,21 +78,14 @@ public class OrderListDAOTest {
 		dao.closeConnection();
 	}
 
-	@Test public void deleteTest() {
-		OrderList order = new OrderList();
-		order.setId(2);
+	@After public void deleteTest() {
+		order.setId(1);
 		order.setDate(Date.valueOf("2015-06-25"));
-		
+
 		OrderListDAO dao = OrderListDAO.getInstance();
 		Connection connection = dao.getConnection();
-		assertTrue (connection != null);
-		order = dao.insert(order);
-		assertFalse(order.getId() == 0);
-
 		assertTrue(connection != null);
-		dao.delete(2);
-		order = dao.selectById(2);
-		assertEquals(order, null);
+		assertFalse( dao.delete(1));
 		dao.closeConnection();
 	}
 }

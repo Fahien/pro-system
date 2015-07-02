@@ -42,7 +42,6 @@ public class OrderListDAO extends AbstractDAO {
 				ResultSet result = insert.getGeneratedKeys();
 				if (result.next()) {
 					order.setId(result.getLong(1));
-					logger.info("Order id: " + order.getId());
 				}
 			}
 		} catch (SQLException e) {

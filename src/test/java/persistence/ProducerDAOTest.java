@@ -5,18 +5,14 @@ import static org.junit.Assert.*;
 import java.sql.Connection;
 
 import model.Producer;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ProducerDAOTest {
 
-	@Test public void daoTest() {
-		DAO dao = ProducerDAO.getInstance();
-		Connection connection = dao.getConnection();
-		assertTrue(connection != null);
-		dao.closeConnection();
-	}
-
-	@Test public void insertTest() {
+	@Before public void insertTest() {
 		Producer producer = new Producer();
 		producer.setId(1);
 		producer.setName("producer");
@@ -34,8 +30,14 @@ public class ProducerDAOTest {
 		dao.closeConnection();
 	}
 
+	@Test public void daoTest() {
+		DAO dao = ProducerDAO.getInstance();
+		Connection connection = dao.getConnection();
+		assertTrue(connection != null);
+		dao.closeConnection();
+	}
+
 	@Test public void selectTest() {
-		insertTest();
 		ProducerDAO dao = ProducerDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
@@ -62,7 +64,7 @@ public class ProducerDAOTest {
 		dao.closeConnection();
 	}
 
-	@Test public void deleteTest() {
+	@After public void deleteTest() {
 		ProducerDAO dao = ProducerDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);

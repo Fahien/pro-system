@@ -5,18 +5,14 @@ import static org.junit.Assert.*;
 import java.sql.Connection;
 
 import model.Format;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class FormatDAOTest {
-
-	@Test public void daoTest() {
-		DAO dao = FormatDAO.getInstance();
-		Connection connection = dao.getConnection();
-		assertTrue(connection != null);
-		dao.closeConnection();
-	}
-
-	@Test public void insertTest() {
+	
+	@Before public void insert() {
 		Format format = new Format();
 		format.setId(1);
 		format.setValue(250);
@@ -29,8 +25,14 @@ public class FormatDAOTest {
 		dao.closeConnection();
 	}
 
+	@Test public void daoTest() {
+		DAO dao = FormatDAO.getInstance();
+		Connection connection = dao.getConnection();
+		assertTrue(connection != null);
+		dao.closeConnection();
+	}
+
 	@Test public void selectTest() {
-		insertTest();
 		FormatDAO dao = FormatDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
@@ -52,7 +54,7 @@ public class FormatDAOTest {
 		dao.closeConnection();
 	}
 
-	@Test public void deleteTest() {
+	@After public void delete() {
 		FormatDAO dao = FormatDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);

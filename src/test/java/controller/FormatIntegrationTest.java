@@ -13,7 +13,7 @@ import com.sun.jersey.api.client.WebResource;
 
 public class FormatIntegrationTest {
 	private static final Logger logger = Logger.getLogger(FormatIntegrationTest.class.getName());
-	private static String FORMAT_URL = "http://localhost:8080/rs/format";
+	private static final String FORMAT_URL = "http://localhost:8080/rs/format";
 
 	@Test public void testFormat() throws Exception {
 		Client client = Client.create();

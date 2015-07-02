@@ -43,7 +43,6 @@ public class ProducerDAO extends AbstractDAO {
 				ResultSet result = insertProducer.getGeneratedKeys();
 				if (result.next()) {
 					producer.setId(result.getLong(1));
-					logger.info("Producer id: " + producer.getId());
 				}
 			}
 		} catch (SQLException e) {

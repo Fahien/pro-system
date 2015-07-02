@@ -43,7 +43,6 @@ public class ProductDAO extends AbstractDAO {
 			ResultSet result = insert.getGeneratedKeys();
 			if (result.next()) {
 				product.setId(result.getLong(1));
-				logger.info("Product id: " + product.getId());
 			}
 		} catch (SQLException e) {
 			logger.warning(e.getMessage());
