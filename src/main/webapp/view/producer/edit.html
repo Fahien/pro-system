@@ -1,4 +1,5 @@
-<form ng-submit="view.producer.$update()" role="form">
+<div class="alert alert-danger" ng-show="view.error">{{ view.error }}</div>
+<form ng-submit="view.update(view.producer)" role="form">
 	<div class="form-group">
 		<input class="form-control" type="text" name="name" placeholder="Name" ng-model="view.producer.name" />
 	</div>

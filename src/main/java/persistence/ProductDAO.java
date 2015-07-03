@@ -95,7 +95,7 @@ public class ProductDAO extends AbstractDAO {
 	public Product selectById(long id) {
 		Product product = null;
 		PreparedStatement select = null;
-		String sql = "SELECT * FROM product WHERE id=?";
+		String sql = "SELECT * FROM product JOIN producer ON product.producer=producer.id AND product.id=?";
 		try {
 			select = connection.prepareStatement(sql);
 			select.setLong(1, id);
@@ -108,6 +108,10 @@ public class ProductDAO extends AbstractDAO {
 				product.setImage(result.getString(4));
 				product.setPrice(result.getFloat(5));
 				product.setGain(result.getFloat(6));
+				Producer producer = new Producer();
+				producer.setId(result.getLong(9));
+				producer.setName(result.getString(10));
+				product.setProducer(producer);
 			}
 		} catch (SQLException e) {
 			logger.warning(e.getMessage());

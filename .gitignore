@@ -4,3 +4,4 @@
 /.settings/
 /.tern-project
 /src/main/resources/db.properties
+/src/test/java/init/

@@ -1,6 +1,6 @@
-<h3>{{ view.order.id + ' - ' + view.order.date }}</h3>
+<h3>Order # {{ view.order.id }} - {{ view.order.date }}</h3>
 <p>{{ view.order.delivery }}</p>
-<p><button ng-click="view.order.$delete({id:view.order.id})" class="btn btn-default">Delete</button></p>
+<p><button ng-click="view.del(view.order)" class="btn btn-danger">Delete</button></p>
 <table class="table">
 	<tbody>
 		<tr>
@@ -12,8 +12,7 @@
 		</tr>
 		<tr ng-repeat="product in view.order.products">
 			<td>{{ product.id }}</td>
-			<td><a ng-href="#/product/{{ product.id }}"
-				class="btn btn-primary">{{ product.name }}</a></td>
+			<td><a ng-href="#/product/{{ product.id }}">{{ product.name }}</a></td>
 			<td>{{ product.format.value }}</td>
 			<td>{{ product.producer.name }}</td>
 			<td>{{ product.number }}</td>

@@ -1,4 +1,5 @@
-<form ng-submit="view.product.$save()" role="form">
+<div class="alert alert-danger" ng-show="view.error">{{ view.error }}</div>
+<form ng-submit="view.create(view.product)" role="form">
 	<div class="form-group">
 		<input class="form-control" type="text" name="name" placeholder="Name" ng-model="view.product.name" />
 	</div>
@@ -16,8 +17,10 @@
 		<input class="form-control" type="text" name="gain" placeholder="Gain" ng-model="view.product.gain" />
 	</div>
 	<div class="form-group">
-		<label for="producer">Producer </label> <select class="form-control" name="producer" ng-model="view.product.producer">
-		<option value="none">Select a producer</option>
+		<label for="producer">Producer </label>
+		<select class="form-control" name="producer" ng-model="view.product.producer.id">
+   			<option value="" disabled selected>Select a producer</option>
+			<option ng-repeat="producer in view.producers" ng-value="{{producer.id}}">{{ producer.name }}</option>
 		</select>
 	</div>
 	<button type="submit" class="btn btn-default">Create</button>

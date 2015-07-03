@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import exception.BadRequestException;
 import service.ProductService;
 import model.Product;
 
@@ -36,6 +37,9 @@ public class ProductController {
 	}
 
 	@POST public Product insert(Product product) {
+		if (product == null || product.getProducer() != null) {
+			throw new BadRequestException("Invalid product");
+		}
 		product = productService.insert(product);
 		return product;
 	}

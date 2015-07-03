@@ -1,6 +1,7 @@
+<div class="alert alert-danger" ng-show="view.error">{{ view.error }}</div>
 <div class="row">
 	<div class="col-md-6">
-	<form ng-submit="view.order.$update()" role="form">
+	<form ng-submit="view.update(view.order)" role="form">
 			<div class="form-group">
 				<input class="form-control" type="text" name="delivery"
 					placeholder="Delivery" ng-model="view.order.delivery" />
@@ -8,6 +9,7 @@
 			<div class="form-group">
 			<button type="submit" class="btn btn-primary">Update</button></div>
 		</form>
+		<p><button class="btn btn-default" ng-click="view.reset(view.order.products)">Reset</button> 
 		<ul>
 			<li ng-repeat="product in view.order.products">{{ product.name +
 				" - " + product.format.value + "g - " + product.number}}</li>
@@ -16,16 +18,12 @@
 		
 	</div>
 	<div class="col-md-6">
-	<form ng-submit="view.search(view.productName)" role="form">
 			<div class="form-group">
 				<input class="form-control" type="text" name="search"
-					placeholder="Search product" ng-model="view.productName" />
+					placeholder="Search product" ng-model="view.productName"
+					ng-change="view.search(view.productName)" />
 			</div>
 			
-			<div class="form-group">
-			<button type="submit" class="btn btn-default">Search</button>
-			</div>
-		</form>
 		<table class="table">
 			<tbody>
 				<tr>

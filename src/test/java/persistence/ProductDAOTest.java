@@ -10,37 +10,21 @@ import java.util.List;
 import model.Producer;
 import model.Product;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ProductDAOTest {
+	private Product product = new Product();
+	private Producer producer = new Producer();
 
-	@Test public void daoTest() {
-		DAO dao = ProductDAO.getInstance();
-		Connection connection = dao.getConnection();
-		assertTrue(connection != null);
-		dao.closeConnection();
-	}
-
-	@Test public void selectTest() {
-		insertTest();
-		ProductDAO dao = ProductDAO.getInstance();
-		Connection connection = dao.getConnection();
-		assertTrue(connection != null);
-		Product product = dao.selectById(1);
-		assertFalse(product == null);
-		dao.closeConnection();
-	}
-
-	public void insertTest() {
-		Producer producer = new Producer();
+	@Before public void insertTest() {
 		producer.setName("Producer");
 		ProducerDAO producerDao = ProducerDAO.getInstance();
 		producerDao.getConnection();
 		producer = producerDao.insert(producer);
 		producerDao.closeConnection();
-		
-		Product product = new Product();
-		product.setId(1);
+
 		product.setName("Name");
 		product.setDescription("Description");
 		product.setImage("Url");
@@ -53,6 +37,23 @@ public class ProductDAOTest {
 		assertTrue(connection != null);
 		product = dao.insert(product);
 		assertFalse(product.getId() == 0);
+		dao.closeConnection();
+	}
+
+	@Test public void daoTest() {
+		DAO dao = ProductDAO.getInstance();
+		Connection connection = dao.getConnection();
+		assertTrue(connection != null);
+		dao.closeConnection();
+	}
+
+	@Test public void selectTest() {
+		ProductDAO dao = ProductDAO.getInstance();
+		Connection connection = dao.getConnection();
+		assertTrue(connection != null);
+		Product selected = dao.selectById(product.getId());
+		assertFalse(selected == null);
+		assertFalse(selected.getProducer() == null);
 		dao.closeConnection();
 	}
 
@@ -69,14 +70,12 @@ public class ProductDAOTest {
 		ProductDAO dao = ProductDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
-		List<Product> products = dao.selectAllByName("Updated");
+		List<Product> products = dao.selectAllByName("Name");
 		assertFalse(products.size() == 0);
 		dao.closeConnection();
 	}
 
 	@Test public void updateTest() {
-		Product product = new Product();
-		product.setId(1);
 		product.setName("Updated");
 		product.setDescription("Description");
 		product.setImage("Url");
@@ -91,13 +90,21 @@ public class ProductDAOTest {
 		dao.closeConnection();
 	}
 
-	@Test public void deleteTest() {
+	@After public void deleteTest() {
 		ProductDAO dao = ProductDAO.getInstance();
 		Connection connection = dao.getConnection();
 		assertTrue(connection != null);
-		dao.delete(1);
-		Product product = dao.selectById(1);
-		assertEquals(product, null);
+		dao.delete(product.getId());
+		Product selected = dao.selectById(product.getId());
+		assertEquals(selected, null);
+		dao.closeConnection();
+		
+		ProducerDAO pdao = ProducerDAO.getInstance();
+		connection = pdao.getConnection();
+		assertTrue(connection != null);
+		pdao.delete(producer.getId());
+		Producer pselected = pdao.selectById(producer.getId());
+		assertEquals(pselected, null);
 		dao.closeConnection();
 	}
 }

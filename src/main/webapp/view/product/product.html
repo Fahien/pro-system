@@ -1,6 +1,6 @@
 <h3>{{ view.product.name }}</h3>
+<p><a ng-href="/#/producer/{{ view.product.producer.id}}">{{ view.product.producer.name }}</a></p>
 <p>{{ view.product.description }}</p>
 <p>{{ view.product.price + view.product.gain | currency }}</p>
 <img ng-src="{{view.product.image}}" alt="{{view.product.name}}" />
-<p>{{ view.product.producer }}</p>
-<p><button ng-click="view.product.$delete({id:view.product.id})" class="btn btn-default">Delete</button></p>
+<p><button ng-click="view.del(view.product)" class="btn btn-danger">Delete</button></p>

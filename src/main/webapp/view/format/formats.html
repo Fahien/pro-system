@@ -1,5 +1,5 @@
 <p>
-	<a class="btn btn-primary" href="#/format/create">Create format</a>
+	<a class="btn btn-success" href="#/format/create">Create format</a>
 </p>
 <table class="table">
 <tbody>
@@ -9,7 +9,7 @@
 	<td>{{ format.value }}</td>
 	<td>
 		<a ng-href="#/format/edit/{{ format.id }}" class="btn btn-default">Update</a>
-		<button ng-click="format.$delete({id:format.id})" class="btn btn-danger">Delete</button>
+		<button ng-click="view.del(format)" class="btn btn-danger">Delete</button>
 	</td>
 	</tr>
 </tbody>

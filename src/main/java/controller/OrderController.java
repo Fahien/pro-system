@@ -10,8 +10,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import exception.BadRequestException;
 import service.OrderListService;
 import model.OrderList;
+import model.Product;
 
 @Path("/order")
 @Produces("application/json")
@@ -35,6 +37,13 @@ public class OrderController {
 	}
 
 	@PUT public OrderList update(OrderList order) {
+		if (order == null || order.getProducts() != null) {
+			for (Product product : order.getProducts()) {
+				if (product.getFormat() == null || product.getProducer() == null) {
+					throw new BadRequestException("Invalid product list");
+				}
+			}
+		}
 		order = orderService.update(order);
 		return order;
 	}
