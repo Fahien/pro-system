@@ -18,7 +18,7 @@ function productController($location, $routeParams, ProductFactory, ProducerFact
 		view.products = productFactory;
 	});
 	
-	if($location.path() == "/product/create") {
+	if($location.path() == "/product/create" || $location.path().indexOf("/product/edit") == 0) {
 		view.producers = [];
 		ProducerFactory.query({}, function (producerFactory) {
 			view.producers = producerFactory;
@@ -177,13 +177,8 @@ function orderController($location, $routeParams, OrderFactory, ProductFactory) 
 
 	view.create = create;
 	function create(order) {
-		order.$save(function() {
-			OrderFactory.query({}, function (orderFactory) {
-				view.orders = orderFactory;
-				view.order = new OrderFactory;
-				view.order.date = Date.now();
-				view.order.products = [];
-			});
+		order.$save({}, function(o) {
+			$location.path("/order/edit/" + o.id); 
 		})
 	}
 

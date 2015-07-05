@@ -24,6 +24,7 @@
 			<td>
 				<a ng-href="#/producer/{{ producer.id }}" class="btn btn-primary">View</a>
 				<a ng-href="#/producer/edit/{{ producer.id }}" class="btn btn-default">Update</a>
+				<button ng-click="view.del(producer)" class="btn btn-danger">Delete</button>
 			</td>
 		</tr>
 	</tbody>

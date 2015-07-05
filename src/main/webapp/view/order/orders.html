@@ -1,5 +1,6 @@
 <p>
-	<button class="btn btn-success" ng-click="view.create(view.order)">Create order</button>
+	<button class="btn btn-success" ng-click="view.create(view.order)">Create
+		order</button>
 </p>
 <table class="table">
 	<tbody>
@@ -12,9 +13,9 @@
 			<td>{{ order.id }}</td>
 			<td>{{ order.date }}</td>
 			<td>{{ order.delivery }}</td>
-			<td><a ng-href="#/order/{{ order.id }}"
-				class="btn btn-primary">View</a> <a
-				ng-href="#/order/edit/{{ order.id }}" class="btn btn-default">Update</a>
+			<td><a ng-href="#/order/{{ order.id }}" class="btn btn-primary">View</a>
+				<a ng-href="#/order/edit/{{ order.id }}" class="btn btn-default">Update</a>
+				<button class="btn btn-danger" ng-click="view.del(order)">Delete</button>
 			</td>
 		</tr>
 	</tbody>

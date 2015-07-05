@@ -156,7 +156,7 @@ public class ProductDAO extends AbstractDAO {
 	public List<Product> selectAllByName(String name) {
 		List<Product> products = new ArrayList<>();
 		PreparedStatement selectAll = null;
-		String sql = "SELECT * FROM product WHERE name LIKE ?";
+		String sql = "SELECT * FROM product WHERE UPPER(name) LIKE UPPER(?)";
 		try {
 			selectAll = connection.prepareStatement(sql);
 			selectAll.setString(1, "%" + name + "%");
